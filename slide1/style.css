@@ -1,0 +1,68 @@
+*{margin: 0;padding:0;}
+*{box-sizing: border-box;}
+.window{
+    width: 400px;
+    height:300px;
+    margin: 20px auto; 
+    /* 多出来的看不见  */
+    overflow: hidden;
+    
+    
+
+}
+.images{
+    position: relative;
+    display: flex;
+    
+}
+.images >img{
+    transition: all 1s;
+    width:100%;
+    position: absolute;
+    top: 0;
+}
+/* 100%是指和他爸爸一样宽 */
+/* .images>img:nth-child(1){
+    top:0;
+    left:0;
+    position: absolute;
+}
+.images>img:nth-child(2){
+    top:0;
+    position: absolute;
+    /* 在右边呆着，等待出场 */
+    /* left:100%;
+}
+.images>img:nth-child(3){
+    top:0;
+    left:200%;
+    position: absolute;
+} */ 
+/* .images>img:nth-child(4){
+    top:0;
+    position: absolute;
+    /* 在右边呆着，等待出场 */
+    /* left:200%;
+} */
+/* .images > img.right{
+    top:0;
+    left:100%;
+    position: absolute;
+} */
+.images > img.current{
+    left:0;
+    transform: translateX(0);
+    /* //当前事件在最上层 */
+    z-index:1;
+
+}
+.images > img.leave{
+    transform: translateX(-100%);
+    /* -100 0 100 */
+    /* 移开的过程中也是在其他元素的上面 */
+    z-index:1;
+}
+.images > img.enter{
+    transform: translateX(100%);
+    
+}
