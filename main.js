@@ -38,11 +38,29 @@
 //     })
 // },9000)
 // 图片一共三种状态
-// 现状：current 走：leave 进入 enter 占 stay
-$('.images>img:nth-child(1)').addClass('current')
-$('.images>img:nth-child(2)').addClass('enter')
-$('.images>img:nth-child(3)').addClass('enter')
-let n = 1
+// 现状：current 走：leave 进入 enter 
+let n 
+init()
+setInterval(() => {
+    makeLeave(getImage(n))
+         .one('transitionend', function (e) {
+            makeEnter(e.currentTarget)
+         })
+    makeCurrent(getImage(n+1))
+     n += 1
+}, 3000)
+
+
+
+
+
+function init(){
+    n = 1
+    $(`.images>img:nth-child(${n})`).addClass('current')
+  
+    .siblings().addClass('enter')
+}
+
 function x(n) {
     if (n > 3) {
         n = n % 3
@@ -54,16 +72,21 @@ function x(n) {
     return n
 }
 // n=1,2,3
-setInterval(() => {
-    
-        $(`.images>img:nth-child(${x(n)})`).removeClass('current').addClass('leave')
-            .one('transitionend', function (e) {
-                $(e.currentTarget).removeClass('leave').addClass('enter')
-            })
-        $(`.images>img:nth-child(${x(n + 1)})`).removeClass('enter').addClass('current')
-        n += 1
-}, 3000)
 
+function getImage(n){
+    return $(`.images>img:nth-child(${x(n)})`)
+}
+
+function makeCurrent($node){
+    return $node.removeClass('enter').addClass('current')
+    // 如果不加return将返回一个undefined!
+}
+function makeEnter($node){
+    return $node.removeClass('current').removeClass('leave')
+}
+function makeLeave($node){
+    return $node.removeClass('enter').addClass('leave')
+}
 // setTimeout(() => {
 //     $('.images>img:nth-child(1)').removeClass('current').addClass('leave')
 //         .one('transitionend', function (e) {
