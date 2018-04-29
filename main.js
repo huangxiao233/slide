@@ -44,7 +44,7 @@ init()
 setInterval(() => {
     makeLeave(getImage(n))
          .one('transitionend', function (e) {
-            makeEnter(e.currentTarget)
+            makeEnter($(e.currentTarget))
          })
     makeCurrent(getImage(n+1))
      n += 1
@@ -78,14 +78,14 @@ function getImage(n){
 }
 
 function makeCurrent($node){
-    return $node.removeClass('enter').addClass('current')
+    return $node.removeClass('enter leave').addClass('current')
     // 如果不加return将返回一个undefined!
 }
 function makeEnter($node){
-    return $node.removeClass('current').removeClass('leave')
+    return $node.removeClass('current leave').addClass('enter')
 }
 function makeLeave($node){
-    return $node.removeClass('enter').addClass('leave')
+    return $node.removeClass('enter current').addClass('leave')
 }
 // setTimeout(() => {
 //     $('.images>img:nth-child(1)').removeClass('current').addClass('leave')
